@@ -27,7 +27,7 @@ namespace RR3Trim
             con.Open();
 
             string qry = @"SELECT *
-                           FROM [PRO].[dbo].[MATRICULA_UNIZAR_MARCOS_SANCHEZ]";
+                           FROM [PRO].[dbo].[MATRICULA_UNIZAR_MARIO_PARICIO]";
 
             SqlCommand cmd = new SqlCommand(qry, con);
 
@@ -91,7 +91,7 @@ namespace RR3Trim
                     {
                         try
                         {
-                            string sql = @"INSERT INTO [dbo].[MATRICULA_UNIZAR_MARCOS_SANCHEZ]
+                            string sql = @"INSERT INTO [dbo].[MATRICULA_UNIZAR_MARIO_PARICIO]
                                    ([CURSO_ACADEMICO]
                                    ,[LOCALIDAD]
                                    ,[TIPO_CENTRO]
@@ -150,23 +150,23 @@ namespace RR3Trim
         }
         private void btnLinq_Click(object sender, EventArgs e)
         {
-            string qry = @"SELECT * FROM [dbo].[MATRICULA_UNIZAR_MARCOS_SANCHEZ]";
+            string qry = @"SELECT * FROM [dbo].[MATRICULA_UNIZAR_MARIO_PARICIO]";
             // EjecutarQuery(qry);
 
             /*Ejercicio 1: Muestre el número total de alumnos matriculados.*/
             qry = @"SELECT SUM(ALUMNOS_MATRICULADOS) AS 'Total Alumnos Matriculados'
-                    FROM dbo.MATRICULA_UNIZAR_MARCOS_SANCHEZ";
+                    FROM dbo.MATRICULA_UNIZAR_MARIO_PARICIO";
             // EjecutarQuery(qry);
 
             /*Ejercicio 2: Muestre el número de alumnos por sexo.*/
             qry = @" SELECT SEXO AS 'Sexo', SUM(ALUMNOS_MATRICULADOS) AS 'Total Alumnos Matriculados'
-                        FROM dbo.MATRICULA_UNIZAR_MARCOS_SANCHEZ
+                        FROM dbo.MATRICULA_UNIZAR_MARIO_PARICIO
                         GROUP BY SEXO";
             // EjecutarQuery(qry);
 
             /*Ejercicio 3: Muestre los 5 estudios de máster con mayor número de alumnos y el número de alumnos que lo cursan.*/
             qry = @"SELECT TOP(5) ESTUDIO AS 'Estudio', ALUMNOS_MATRICULADOS AS 'Alumnos Matriculados'
-                    FROM dbo.MATRICULA_UNIZAR_MARCOS_SANCHEZ
+                    FROM dbo.MATRICULA_UNIZAR_MARIO_PARICIO
                     WHERE TIPO_ESTUDIO = 'Máster'
                     ORDER BY ALUMNOS_MATRICULADOS DESC";
             // EjecutarQuery(qry);
@@ -177,7 +177,7 @@ namespace RR3Trim
 
                                   FROM(SELECT CENTRO, SUM(ALUMNOS_MATRICULADOS) Mujeres
 
-                                  FROM[MATRICULA_UNIZAR_MARCOS_SANCHEZ]
+                                  FROM[MATRICULA_UNIZAR_MARIO_PARICIO]
 
                                   WHERE TIPO_ESTUDIO = 'Grado' AND SEXO = 'Mujeres'
 
@@ -185,7 +185,7 @@ namespace RR3Trim
                               LEFT JOIN
                                   (SELECT CENTRO, SUM(ALUMNOS_MATRICULADOS) Hombres
 
-                                  FROM[MATRICULA_UNIZAR_MARCOS_SANCHEZ]
+                                  FROM[MATRICULA_UNIZAR_MARIO_PARICIO]
                                   WHERE TIPO_ESTUDIO = 'Grado' AND SEXO = 'Hombres'
 
                                   GROUP BY CENTRO) AS H
@@ -195,11 +195,11 @@ namespace RR3Trim
 
             /*Ejercicio 5: Muestre los 5 estudios de grado o master que se pueden cursar en un mayor número de localidades junto con las localidades donde se pueden cursar.*/
             qry = @" SELECT DISTINCT ESTUDIO, LOCALIDAD
-                        FROM[MATRICULA_UNIZAR_MARCOS_SANCHEZ]
+                        FROM[MATRICULA_UNIZAR_MARIO_PARICIO]
                                WHERE ESTUDIO IN(
                                                  SELECT TOP(5) ESTUDIO
 
-                                                 FROM[MATRICULA_UNIZAR_MARCOS_SANCHEZ]
+                                                 FROM[MATRICULA_UNIZAR_MARIO_PARICIO]
 
                                                  WHERE TIPO_ESTUDIO = 'Grado' OR TIPO_ESTUDIO = 'Máster'
 
@@ -211,19 +211,19 @@ namespace RR3Trim
 
             /*Ejercicio 6: Muestra todos los alumnos matriculados que estudien en un Centro adscrito en Teruel*/
             qry = @"SELECT SUM(ALUMNOS_MATRICULADOS) AS 'Alumnos turolenses de centros adscritos'
-                    FROM dbo.MATRICULA_UNIZAR_MARCOS_SANCHEZ
+                    FROM dbo.MATRICULA_UNIZAR_MARIO_PARICIO
                     WHERE TIPO_CENTRO = 'Centro adscrito' AND LOCALIDAD = 'Teruel'";
             // EjecutarQuery(qry);
 
             /*Ejercicio 7: Muestra todos los alumnos que en DEDICACION hacen tiempo completo y junto a ello muestra los estudios*/
             qry = @"SELECT ALUMNOS_MATRICULADOS AS 'Alumnos', ESTUDIO AS 'Estudio'
-                    FROM dbo.MATRICULA_UNIZAR_MARCOS_SANCHEZ
+                    FROM dbo.MATRICULA_UNIZAR_MARIO_PARICIO
                     WHERE DEDICACION = 'Tiempo Completo'";
             // EjecutarQuery(qry);
 
             /*Ejercicio 8: Muestra los estudios, que más número de alumnos cursan en la comunidad de Aragón*/
             qry = @"SELECT ESTUDIO AS 'Estudio', NOMBRE_CCAA_ALUMNO AS 'CCAA', ALUMNOS_MATRICULADOS AS 'Nº Alumnos'
-                    FROM dbo.MATRICULA_UNIZAR_MARCOS_SANCHEZ
+                    FROM dbo.MATRICULA_UNIZAR_MARIO_PARICIO
                     WHERE NOMBRE_CCAA_ALUMNO = 'Aragón'
                     ORDER BY ALUMNOS_MATRICULADOS DESC";
             EjecutarQuery(qry);
